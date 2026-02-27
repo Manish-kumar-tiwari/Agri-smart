@@ -38,7 +38,7 @@ def _build_prediction_context(payload: PredictionInput) -> dict:
     food_security_level, expected_production_tons, food_security_notes = assess_food_security(
         payload, predicted_yield_t_ha, risk_level
     )
-
+   # The context dict can be extended with more derived data as needed.
     return {
         "predicted_yield_hg_ha": predicted_yield_hg_ha,
         "predicted_yield_t_ha": predicted_yield_t_ha,
