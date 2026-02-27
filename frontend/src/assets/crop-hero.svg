@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 280" role="img" aria-label="Farm fields and crops illustration">
+  <defs>
+    <linearGradient id="sky" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#dff2dc" />
+      <stop offset="1" stop-color="#f8fbf3" />
+    </linearGradient>
+    <linearGradient id="hillA" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0" stop-color="#6da46f" />
+      <stop offset="1" stop-color="#4f8251" />
+    </linearGradient>
+    <linearGradient id="hillB" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0" stop-color="#95c48f" />
+      <stop offset="1" stop-color="#6ea271" />
+    </linearGradient>
+    <linearGradient id="soil" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0" stop-color="#d39a62" />
+      <stop offset="1" stop-color="#b6773d" />
+    </linearGradient>
+  </defs>
+
+  <rect width="720" height="280" fill="url(#sky)" />
+  <circle cx="612" cy="62" r="26" fill="#f5d07f" />
+
+  <path d="M0 150 Q120 95 250 130 T480 118 T720 132 V280 H0 Z" fill="url(#hillB)" />
+  <path d="M0 175 Q180 130 360 165 T720 160 V280 H0 Z" fill="url(#hillA)" />
+
+  <path d="M0 210 C130 178 240 212 360 194 C495 173 586 205 720 182 V280 H0 Z" fill="#e7b77e" />
+  <path d="M0 228 C145 193 247 231 360 217 C503 200 590 226 720 203 V280 H0 Z" fill="url(#soil)" />
+  <path d="M0 247 C142 216 247 251 360 237 C504 223 592 246 720 225 V280 H0 Z" fill="#9c6330" opacity=".72" />
+
+  <g fill="#2f6334">
+    <path d="M90 219c9-16 13-32 12-48 7 12 10 24 9 37 11-8 16-18 17-31 3 15 1 29-8 42h-30z" />
+    <path d="M170 234c7-12 10-24 9-36 5 9 8 18 7 27 8-6 12-14 13-23 2 12 1 22-5 32h-24z" />
+    <path d="M280 225c8-13 12-27 11-41 6 10 9 20 8 31 10-7 14-16 15-27 3 13 1 25-6 37h-28z" />
+    <path d="M376 240c7-11 10-22 9-33 4 8 7 16 6 24 7-5 10-12 12-20 2 10 1 19-5 29h-22z" />
+    <path d="M470 230c8-13 12-27 11-40 6 10 9 20 8 31 10-7 14-16 15-26 3 13 1 25-6 35h-28z" />
+    <path d="M568 245c6-10 9-20 8-30 4 7 6 14 5 21 6-4 9-10 10-17 2 9 1 16-4 24h-19z" />
+    <path d="M646 234c7-12 10-24 9-35 5 9 7 17 7 25 8-6 11-13 12-22 2 11 1 21-5 30h-23z" />
+  </g>
+
+  <g stroke="#7aa474" stroke-width="2.2" stroke-linecap="round">
+    <path d="M120 172c18-24 42-36 70-41" />
+    <path d="M176 171c16-20 34-30 56-33" />
+    <path d="M290 169c18-24 42-36 70-41" />
+    <path d="M410 172c16-21 35-32 58-36" />
+    <path d="M518 167c16-20 34-31 56-35" />
+  </g>
+</svg>

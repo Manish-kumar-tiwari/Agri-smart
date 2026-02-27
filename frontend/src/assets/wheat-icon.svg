@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" role="img" aria-label="Wheat icon">
+  <defs>
+    <linearGradient id="grain" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#edcf77" />
+      <stop offset="1" stop-color="#c99743" />
+    </linearGradient>
+  </defs>
+  <rect width="80" height="80" rx="16" fill="#fbf4df" />
+  <path d="M40 62V20" stroke="#8b6b2c" stroke-width="3.5" stroke-linecap="round" />
+  <g fill="url(#grain)">
+    <ellipse cx="34" cy="26" rx="5" ry="3.6" transform="rotate(-30 34 26)" />
+    <ellipse cx="46" cy="26" rx="5" ry="3.6" transform="rotate(30 46 26)" />
+    <ellipse cx="33" cy="34" rx="5" ry="3.6" transform="rotate(-30 33 34)" />
+    <ellipse cx="47" cy="34" rx="5" ry="3.6" transform="rotate(30 47 34)" />
+    <ellipse cx="32" cy="42" rx="5" ry="3.6" transform="rotate(-30 32 42)" />
+    <ellipse cx="48" cy="42" rx="5" ry="3.6" transform="rotate(30 48 42)" />
+    <ellipse cx="32" cy="50" rx="5" ry="3.6" transform="rotate(-30 32 50)" />
+    <ellipse cx="48" cy="50" rx="5" ry="3.6" transform="rotate(30 48 50)" />
+  </g>
+  <ellipse cx="40" cy="65" rx="18" ry="4.2" fill="#e8d6aa" />
+</svg>

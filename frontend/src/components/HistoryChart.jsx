@@ -76,9 +76,10 @@ export default function HistoryChart({ history }) {
   const recentRows = [...data].slice(-5).reverse();
 
   return (
-    <section className="card space-y-4">
+    <section className="card card-strong space-y-4">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
+          <p className="section-label">Historical Analytics</p>
           <h2 className="text-xl font-bold">Prediction History Trend (t/ha)</h2>
           <p className="text-sm text-earth-600">
             {data.length} records from {formatDate(first.date)} to {formatDate(latest.date)}

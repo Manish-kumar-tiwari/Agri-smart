@@ -3,17 +3,41 @@
 @tailwind utilities;
 
 :root {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Manrope", "Avenir Next", "Segoe UI", sans-serif;
+  --surface: rgba(255, 255, 255, 0.86);
+  --surface-strong: rgba(255, 255, 255, 0.96);
+  --line-soft: rgba(45, 78, 49, 0.12);
+  --text-muted: rgba(26, 47, 29, 0.72);
+  font-feature-settings: "cv11", "ss01";
 }
 
 body {
-  @apply min-h-screen text-earth-900;
+  @apply min-h-screen text-earth-900 antialiased;
   background:
-    radial-gradient(circle at 10% 10%, rgba(183, 119, 61, 0.12), transparent 35%),
-    radial-gradient(circle at 90% 20%, rgba(75, 127, 82, 0.12), transparent 35%),
-    linear-gradient(135deg, #f3f8f0 0%, #ffffff 45%, #f5e8db 100%);
+    radial-gradient(circle at 8% 12%, rgba(183, 119, 61, 0.2), transparent 32%),
+    radial-gradient(circle at 88% 18%, rgba(75, 127, 82, 0.2), transparent 36%),
+    radial-gradient(circle at 60% 88%, rgba(75, 127, 82, 0.1), transparent 34%),
+    linear-gradient(140deg, #f1f7ec 0%, #fcfefb 44%, #f5e8db 100%);
 }
 
 .card {
-  @apply rounded-2xl bg-white/90 p-6 shadow-soft backdrop-blur ring-1 ring-earth-100;
+  @apply rounded-2xl p-6 backdrop-blur-xl;
+  background: var(--surface);
+  border: 1px solid var(--line-soft);
+  box-shadow: 0 10px 35px rgba(26, 47, 29, 0.08);
+}
+
+.card-strong {
+  background: var(--surface-strong);
+}
+
+.kpi-card {
+  @apply rounded-xl border p-4;
+  border-color: rgba(75, 127, 82, 0.15);
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.94) 0%, rgba(243, 248, 240, 0.86) 100%);
+}
+
+.section-label {
+  @apply text-xs font-semibold uppercase tracking-[0.14em];
+  color: var(--text-muted);
 }
