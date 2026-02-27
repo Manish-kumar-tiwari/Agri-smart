@@ -1,0 +1,12 @@
+services:
+  backend:
+    build:
+      context: ./backend
+    container_name: agrismart-backend
+    restart: unless-stopped
+    env_file:
+      - ./backend/.env
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend/data:/app/app/data
