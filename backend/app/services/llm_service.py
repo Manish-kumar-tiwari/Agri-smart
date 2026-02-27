@@ -204,15 +204,14 @@ def _llm_response(prompt: str) -> str:
     raise ValueError(f"Unsupported llm_provider: {settings.llm_provider}")
 
 
-def generate_advisory(
+def _build_advisory_prompt(
     payload: PredictionInput,
     predicted_yield_t_ha: float,
     risk_level: str,
     planting_schedule: dict[str, str | list[str]],
     food_security_level: str,
 ) -> str:
-    grain_suggestions = _build_grain_suggestions(payload, predicted_yield_t_ha)
-    prompt = PROMPT_TEMPLATE.format(
+    return PROMPT_TEMPLATE.format(
         area=payload.area,
         crop=payload.item,
         year=payload.year,
@@ -223,6 +222,23 @@ def generate_advisory(
         risk=risk_level,
         planting_window=planting_schedule.get("recommended_window", "N/A"),
         food_security_level=food_security_level,
+    )
+
+
+def generate_advisory(
+    payload: PredictionInput,
+    predicted_yield_t_ha: float,
+    risk_level: str,
+    planting_schedule: dict[str, str | list[str]],
+    food_security_level: str,
+) -> str:
+    grain_suggestions = _build_grain_suggestions(payload, predicted_yield_t_ha)
+    prompt = _build_advisory_prompt(
+        payload,
+        predicted_yield_t_ha,
+        risk_level,
+        planting_schedule,
+        food_security_level,
     )
 
     try:

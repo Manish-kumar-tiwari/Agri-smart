@@ -20,7 +20,7 @@ export default function ResultCard({ result }) {
   const foodNotes = result.food_security_notes || [];
 
   return (
-    <section className="card card-strong space-y-5">
+    <section className="card card-strong h-full space-y-4">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <p className="section-label">Prediction Output</p>
@@ -64,7 +64,7 @@ export default function ResultCard({ result }) {
             {result.food_security_level}
           </span>
         </div>
-        <ul className="body-copy list-disc space-y-1 pl-6 text-sm">
+        <ul className="body-copy list-disc space-y-1 pl-6 text-sm [overflow-wrap:anywhere]">
           {foodNotes.map((item) => (
             <li key={item}>{item}</li>
           ))}
@@ -75,7 +75,7 @@ export default function ResultCard({ result }) {
         <div className="rounded-xl border border-earth-100 bg-white p-4">
           <h3 className="heading-md text-sm uppercase tracking-wide">Agronomic Warnings</h3>
           {result.warnings?.length ? (
-            <ul className="body-copy mt-2 list-disc space-y-1 pl-6 text-sm">
+            <ul className="body-copy mt-2 list-disc space-y-1 pl-6 text-sm [overflow-wrap:anywhere]">
               {result.warnings.map((item) => (
                 <li key={item}>{item}</li>
               ))}
@@ -87,11 +87,11 @@ export default function ResultCard({ result }) {
 
         <div className="rounded-xl border border-earth-100 bg-white p-4">
           <h3 className="heading-md text-sm uppercase tracking-wide">Planting Schedule Plan</h3>
-          <p className="body-copy mt-2 text-sm">{schedule.recommended_window}</p>
-          <p className="body-copy mt-2 text-sm">
+          <p className="body-copy mt-2 text-sm [overflow-wrap:anywhere]">{schedule.recommended_window}</p>
+          <p className="body-copy mt-2 text-sm [overflow-wrap:anywhere]">
             <span className="heading-md">Irrigation:</span> {schedule.irrigation_plan}
           </p>
-          <ul className="body-copy mt-2 list-disc space-y-1 pl-6 text-sm">
+          <ul className="body-copy mt-2 list-disc space-y-1 pl-6 text-sm [overflow-wrap:anywhere]">
             {schedule.actions.map((item) => (
               <li key={item}>{item}</li>
             ))}
@@ -99,9 +99,11 @@ export default function ResultCard({ result }) {
         </div>
       </div>
 
-      <div className="rounded-xl border border-earth-100 bg-white p-4">
+      <div className="rounded-xl border border-earth-100 bg-white p-4 overflow-hidden">
         <h3 className="heading-md text-sm uppercase tracking-wide">AI Advisory</h3>
-        <p className="body-copy mt-2 whitespace-pre-line text-sm leading-6">{result.advisory}</p>
+        <div className="mt-2 max-h-[28rem] overflow-y-auto pr-1">
+          <p className="body-copy whitespace-pre-wrap text-sm leading-6 break-words [overflow-wrap:anywhere]">{result.advisory}</p>
+        </div>
       </div>
 
       <div className="rounded-xl border border-earth-100 bg-earth-50 p-4">

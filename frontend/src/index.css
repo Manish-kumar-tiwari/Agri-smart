@@ -4,32 +4,47 @@
 
 :root {
   font-family: "Manrope", "Avenir Next", "Segoe UI", sans-serif;
-  --surface: rgba(255, 255, 255, 0.86);
-  --surface-strong: rgba(255, 255, 255, 0.96);
-  --line-soft: rgba(45, 78, 49, 0.12);
-  --text-heading-1: #0f2b1b;
-  --text-heading-2: #1a3b28;
-  --text-heading-3: #2a5a40;
-  --text-body: #4d6657;
-  --text-muted: #6e8577;
+  --surface: rgba(255, 255, 255, 0.9);
+  --surface-strong: rgba(255, 255, 255, 0.98);
+  --line-soft: rgba(31, 77, 58, 0.14);
+  --text-heading-1: #1f4d3a;
+  --text-heading-2: #2a5f47;
+  --text-heading-3: #3a7559;
+  --text-body: #4f655a;
+  --text-muted: #73857a;
   font-feature-settings: "cv11", "ss01";
 }
 
 body {
   @apply min-h-screen text-earth-900 antialiased;
   background:
-    radial-gradient(circle at 8% 12%, rgba(183, 119, 61, 0.2), transparent 32%),
-    radial-gradient(circle at 88% 18%, rgba(75, 127, 82, 0.2), transparent 36%),
-    radial-gradient(circle at 60% 88%, rgba(75, 127, 82, 0.1), transparent 34%),
-    linear-gradient(140deg, #f1f7ec 0%, #fcfefb 44%, #f5e8db 100%);
+    radial-gradient(circle at 8% 12%, rgba(106, 171, 132, 0.16), transparent 34%),
+    radial-gradient(circle at 88% 18%, rgba(47, 127, 90, 0.14), transparent 36%),
+    radial-gradient(circle at 60% 88%, rgba(47, 127, 90, 0.08), transparent 34%),
+    linear-gradient(140deg, #dbe6dc 0%, #e6eee6 42%, #d9e4da 100%);
   color: var(--text-body);
 }
 
+body,
+body * {
+  color: #000 !important;
+}
+
+body *::placeholder {
+  color: #8e8e8e !important;
+  opacity: 1;
+}
+
+button,
+button * {
+  color: #fff !important;
+}
+
 .card {
-  @apply rounded-2xl p-6 backdrop-blur-xl;
+  @apply rounded-2xl p-5 backdrop-blur-xl;
   background: var(--surface);
   border: 1px solid var(--line-soft);
-  box-shadow: 0 10px 35px rgba(26, 47, 29, 0.08);
+  box-shadow: 0 10px 30px rgba(31, 77, 58, 0.08);
 }
 
 .card-strong {
@@ -37,9 +52,9 @@ body {
 }
 
 .kpi-card {
-  @apply rounded-xl border p-4;
-  border-color: rgba(75, 127, 82, 0.15);
-  background: linear-gradient(160deg, rgba(255, 255, 255, 0.94) 0%, rgba(243, 248, 240, 0.86) 100%);
+  @apply rounded-xl border p-3.5;
+  border-color: rgba(47, 127, 90, 0.18);
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.98) 0%, rgba(236, 244, 238, 0.92) 100%);
 }
 
 .section-label {
@@ -77,3 +92,4 @@ body {
   color: var(--text-heading-1);
   font-weight: 800;
 }
+
