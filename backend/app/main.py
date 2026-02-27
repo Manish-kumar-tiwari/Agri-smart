@@ -23,6 +23,34 @@ def _parsed_origins() -> list[str]:
     return [origin.strip() for origin in settings.cors_origins.split(",") if origin.strip()]
 
 
+def _build_prediction_context(payload: PredictionInput) -> dict:
+    try:
+        predicted_yield_hg_ha = predict_yield(payload)
+    except (FileNotFoundError, RuntimeError, ValueError) as exc:
+        raise HTTPException(status_code=503, detail=str(exc)) from exc
+    except Exception as exc:
+        logger.exception("Prediction failed: %s", exc)
+        raise HTTPException(status_code=500, detail="Prediction failed unexpectedly") from exc
+
+    predicted_yield_t_ha = predicted_yield_hg_ha / 10000.0
+    risk_level, warnings = analyze_risk(payload)
+    planting_schedule = build_planting_schedule(payload)
+    food_security_level, expected_production_tons, food_security_notes = assess_food_security(
+        payload, predicted_yield_t_ha, risk_level
+    )
+
+    return {
+        "predicted_yield_hg_ha": predicted_yield_hg_ha,
+        "predicted_yield_t_ha": predicted_yield_t_ha,
+        "risk_level": risk_level,
+        "warnings": warnings,
+        "expected_production_tons": expected_production_tons,
+        "food_security_level": food_security_level,
+        "food_security_notes": food_security_notes,
+        "planting_schedule": planting_schedule,
+    }
+
+
 @asynccontextmanager
 async def lifespan(_: FastAPI):
     init_db()
@@ -59,56 +87,25 @@ def health() -> HealthResponse:
 
 @app.post("/predict", response_model=PredictionResponse)
 def predict(payload: PredictionInput) -> PredictionResponse:
-    try:
-        predicted_yield_hg_ha = predict_yield(payload)
-    except (FileNotFoundError, RuntimeError, ValueError) as exc:
-        raise HTTPException(status_code=503, detail=str(exc)) from exc
-    except Exception as exc:
-        logger.exception("Prediction failed: %s", exc)
-        raise HTTPException(status_code=500, detail="Prediction failed unexpectedly") from exc
-
-    predicted_yield_t_ha = predicted_yield_hg_ha / 10000.0
-
-    risk_level, warnings = analyze_risk(payload)
-    planting_schedule = build_planting_schedule(payload)
-    food_security_level, expected_production_tons, food_security_notes = assess_food_security(
-        payload, predicted_yield_t_ha, risk_level
-    )
+    context = _build_prediction_context(payload)
     advisory = generate_advisory(
         payload,
-        predicted_yield_t_ha,
-        risk_level,
-        planting_schedule,
-        food_security_level,
+        context["predicted_yield_t_ha"],
+        context["risk_level"],
+        context["planting_schedule"],
+        context["food_security_level"],
     )
 
     record = {
         **payload.model_dump(),
-        "predicted_yield_hg_ha": predicted_yield_hg_ha,
-        "predicted_yield_t_ha": predicted_yield_t_ha,
-        "risk_level": risk_level,
-        "warnings": warnings,
-        "expected_production_tons": expected_production_tons,
-        "food_security_level": food_security_level,
-        "food_security_notes": food_security_notes,
-        "planting_schedule": planting_schedule,
+        **context,
         "advisory": advisory,
     }
     inserted_id = save_prediction(record)
     if inserted_id is None:
         logger.warning("Prediction was generated but could not be persisted to SQLite")
 
-    return PredictionResponse(
-        predicted_yield_hg_ha=predicted_yield_hg_ha,
-        predicted_yield_t_ha=predicted_yield_t_ha,
-        risk_level=risk_level,
-        warnings=warnings,
-        expected_production_tons=expected_production_tons,
-        food_security_level=food_security_level,
-        food_security_notes=food_security_notes,
-        planting_schedule=planting_schedule,
-        advisory=advisory,
-    )
+    return PredictionResponse(**context, advisory=advisory)
 
 
 @app.get("/history", response_model=list[HistoryItem])

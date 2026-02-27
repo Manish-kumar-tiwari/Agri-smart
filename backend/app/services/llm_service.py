@@ -1,4 +1,6 @@
 import logging
+from functools import lru_cache
+from typing import Any
 
 import httpx
 
@@ -143,15 +145,73 @@ def _ollama_response(prompt: str) -> str:
         return text
 
 
-def generate_advisory(
+def _llm_content_to_text(content: Any) -> str:
+    if isinstance(content, str):
+        return content.strip()
+
+    if isinstance(content, list):
+        parts: list[str] = []
+        for item in content:
+            if isinstance(item, str):
+                text = item
+            elif isinstance(item, dict):
+                text = item.get("text") or item.get("content") or ""
+            else:
+                text = getattr(item, "text", None) or getattr(item, "content", None) or ""
+            normalized = str(text).strip()
+            if normalized:
+                parts.append(normalized)
+        return "\n".join(parts).strip()
+
+    if isinstance(content, dict):
+        text = content.get("text") or content.get("content") or ""
+        return str(text).strip()
+
+    return str(content).strip()
+
+
+@lru_cache(maxsize=1)
+def _groq_client():
+    try:
+        from langchain_groq import ChatGroq
+    except Exception as exc:
+        raise RuntimeError("langchain_groq is not installed") from exc
+
+    if not settings.groq_api_key:
+        raise RuntimeError("GROQ_API_KEY is not configured")
+
+    return ChatGroq(
+        groq_api_key=settings.groq_api_key,
+        model=settings.groq_model,
+        temperature=0,
+    )
+
+
+def _groq_response(prompt: str) -> str:
+    client = _groq_client()
+    response = client.invoke(prompt)
+    text = _llm_content_to_text(getattr(response, "content", ""))
+    if not text:
+        raise ValueError("Empty response from Groq")
+    return text
+
+
+def _llm_response(prompt: str) -> str:
+    if settings.llm_provider == "groq":
+        return _groq_response(prompt)
+    if settings.llm_provider == "ollama":
+        return _ollama_response(prompt)
+    raise ValueError(f"Unsupported llm_provider: {settings.llm_provider}")
+
+
+def _build_advisory_prompt(
     payload: PredictionInput,
     predicted_yield_t_ha: float,
     risk_level: str,
     planting_schedule: dict[str, str | list[str]],
     food_security_level: str,
 ) -> str:
-    grain_suggestions = _build_grain_suggestions(payload, predicted_yield_t_ha)
-    prompt = PROMPT_TEMPLATE.format(
+    return PROMPT_TEMPLATE.format(
         area=payload.area,
         crop=payload.item,
         year=payload.year,
@@ -164,10 +224,26 @@ def generate_advisory(
         food_security_level=food_security_level,
     )
 
+
+def generate_advisory(
+    payload: PredictionInput,
+    predicted_yield_t_ha: float,
+    risk_level: str,
+    planting_schedule: dict[str, str | list[str]],
+    food_security_level: str,
+) -> str:
+    grain_suggestions = _build_grain_suggestions(payload, predicted_yield_t_ha)
+    prompt = _build_advisory_prompt(
+        payload,
+        predicted_yield_t_ha,
+        risk_level,
+        planting_schedule,
+        food_security_level,
+    )
+
     try:
-        if settings.llm_provider == "ollama":
-            advisory = _ollama_response(prompt)
-            return f"{advisory}\n\n{grain_suggestions}" if grain_suggestions else advisory
+        advisory = _llm_response(prompt)
+        return f"{advisory}\n\n{grain_suggestions}" if grain_suggestions else advisory
     except Exception as exc:
         logger.warning("LLM advisory unavailable; using fallback advice: %s", exc)
 
