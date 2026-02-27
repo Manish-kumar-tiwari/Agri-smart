@@ -80,8 +80,8 @@ export default function HistoryChart({ history }) {
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <p className="section-label">Historical Analytics</p>
-          <h2 className="text-xl font-bold">Prediction History Trend (t/ha)</h2>
-          <p className="text-sm text-earth-600">
+          <h2 className="heading-lg text-xl">Prediction History Trend (t/ha)</h2>
+          <p className="body-muted text-sm">
             {data.length} records from {formatDate(first.date)} to {formatDate(latest.date)}
           </p>
         </div>
@@ -92,22 +92,22 @@ export default function HistoryChart({ history }) {
 
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         <article className="rounded-xl border border-earth-100 bg-earth-50 p-4">
-          <p className="text-xs font-semibold uppercase tracking-wide text-earth-500">Latest Yield</p>
-          <p className="mt-1 text-2xl font-black text-earth-700">{latest.yield.toFixed(2)} t/ha</p>
-          <p className="mt-1 text-xs text-earth-600">{latest.crop} - {latest.area}</p>
+          <p className="section-label">Latest Yield</p>
+          <p className="metric-value mt-1 text-2xl">{latest.yield.toFixed(2)} t/ha</p>
+          <p className="body-muted mt-1 text-xs">{latest.crop} - {latest.area}</p>
         </article>
         <article className="rounded-xl border border-earth-100 bg-white p-4">
-          <p className="text-xs font-semibold uppercase tracking-wide text-earth-500">Average Yield</p>
-          <p className="mt-1 text-2xl font-black text-earth-700">{average.toFixed(2)} t/ha</p>
-          <p className="mt-1 text-xs text-earth-600">Across all saved predictions</p>
+          <p className="section-label">Average Yield</p>
+          <p className="metric-value mt-1 text-2xl">{average.toFixed(2)} t/ha</p>
+          <p className="body-muted mt-1 text-xs">Across all saved predictions</p>
         </article>
         <article className="rounded-xl border border-earth-100 bg-white p-4">
-          <p className="text-xs font-semibold uppercase tracking-wide text-earth-500">Best Result</p>
-          <p className="mt-1 text-2xl font-black text-earth-700">{best.yield.toFixed(2)} t/ha</p>
-          <p className="mt-1 text-xs text-earth-600">{best.crop} - {best.area} ({best.year})</p>
+          <p className="section-label">Best Result</p>
+          <p className="metric-value mt-1 text-2xl">{best.yield.toFixed(2)} t/ha</p>
+          <p className="body-muted mt-1 text-xs">{best.crop} - {best.area} ({best.year})</p>
         </article>
         <article className="rounded-xl border border-earth-100 bg-clay-100/60 p-4">
-          <p className="text-xs font-semibold uppercase tracking-wide text-earth-500">Trend and Stability</p>
+          <p className="section-label">Trend and Stability</p>
           <p className={`mt-1 text-2xl font-black ${trendClass}`}>
             {trendDelta >= 0 ? "+" : ""}
             {trendDelta.toFixed(2)} t/ha
@@ -150,11 +150,11 @@ export default function HistoryChart({ history }) {
       </div>
 
       <div className="rounded-xl border border-earth-100 bg-earth-50 p-4">
-        <h3 className="text-sm font-semibold uppercase tracking-wide text-earth-600">Recent Predictions</h3>
+        <h3 className="heading-md text-sm uppercase tracking-wide">Recent Predictions</h3>
         <div className="mt-2 overflow-x-auto">
-          <table className="min-w-full text-sm">
+          <table className="body-copy min-w-full text-sm">
             <thead>
-              <tr className="text-left text-xs uppercase tracking-wide text-earth-500">
+              <tr className="body-muted text-left text-xs uppercase tracking-wide">
                 <th className="py-2 pr-3">Date</th>
                 <th className="py-2 pr-3">Crop</th>
                 <th className="py-2 pr-3">Area</th>
@@ -165,7 +165,7 @@ export default function HistoryChart({ history }) {
             </thead>
             <tbody>
               {recentRows.map((row) => (
-                <tr key={`${row.date}-${row.id}`} className="border-t border-earth-100 text-earth-700">
+                <tr key={`${row.date}-${row.id}`} className="border-t border-earth-100">
                   <td className="py-2 pr-3">{formatDateTime(row.date)}</td>
                   <td className="py-2 pr-3">{row.crop}</td>
                   <td className="py-2 pr-3">{row.area}</td>

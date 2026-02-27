@@ -66,16 +66,16 @@ export default function App() {
             </p>
             <div className="mt-3 flex items-center gap-3">
               <img src={sproutIcon} alt="Sprout icon" className="h-10 w-10 rounded-xl border border-earth-100 bg-white/80 p-1.5" />
-              <h1 className="text-3xl font-black tracking-tight text-earth-900 md:text-5xl">AgriSmart</h1>
+              <h1 className="heading-xl text-3xl tracking-tight md:text-5xl">AgriSmart</h1>
             </div>
-            <p className="mt-2 max-w-3xl text-sm text-earth-700 md:text-base">
+            <p className="body-copy mt-2 max-w-3xl text-sm md:text-base">
               A production-ready dashboard to optimize planting strategy and reduce food insecurity using yield intelligence.
             </p>
           </div>
-          <div className="rounded-xl border border-earth-100 bg-white/75 px-4 py-3 text-sm text-earth-700 backdrop-blur">
+          <div className="body-copy rounded-xl border border-earth-100 bg-white/75 px-4 py-3 text-sm backdrop-blur">
             <p className="section-label">System Status</p>
-            <p className="mt-1 font-semibold">{loading ? "Running prediction..." : "Ready for input"}</p>
-            <p className="mt-1 text-xs text-earth-600">Last Update: {formatDateTime(latestHistory?.created_at)}</p>
+            <p className="heading-md mt-1">{loading ? "Running prediction..." : "Ready for input"}</p>
+            <p className="body-muted mt-1 text-xs">Last Update: {formatDateTime(latestHistory?.created_at)}</p>
           </div>
         </div>
 
@@ -90,21 +90,21 @@ export default function App() {
         <div className="relative z-10 mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           <article className="kpi-card">
             <p className="section-label">Total Predictions</p>
-            <p className="mt-2 text-3xl font-black text-earth-800">{totalPredictions}</p>
+            <p className="metric-value mt-2 text-3xl">{totalPredictions}</p>
           </article>
           <article className="kpi-card">
             <p className="section-label">Average Yield</p>
-            <p className="mt-2 text-3xl font-black text-earth-800">{averageYield.toFixed(2)} t/ha</p>
+            <p className="metric-value mt-2 text-3xl">{averageYield.toFixed(2)} t/ha</p>
           </article>
           <article className="kpi-card">
             <p className="section-label">Latest Crop</p>
-            <p className="mt-2 text-lg font-bold text-earth-800">{latestHistory?.item || "N/A"}</p>
-            <p className="mt-1 text-xs text-earth-600">{latestHistory?.area || "No location yet"}</p>
+            <p className="heading-md mt-2 text-lg">{latestHistory?.item || "N/A"}</p>
+            <p className="body-muted mt-1 text-xs">{latestHistory?.area || "No location yet"}</p>
           </article>
           <article className="kpi-card">
             <p className="section-label">Latest Risk</p>
-            <p className="mt-2 text-lg font-bold text-earth-800">{latestHistory?.risk_level || "N/A"}</p>
-            <p className="mt-1 text-xs text-earth-600">
+            <p className="heading-md mt-2 text-lg">{latestHistory?.risk_level || "N/A"}</p>
+            <p className="body-muted mt-1 text-xs">
               {latestHistory ? `${Number(latestHistory.predicted_yield_t_ha || 0).toFixed(2)} t/ha` : "No prediction result yet"}
             </p>
           </article>
@@ -128,8 +128,8 @@ export default function App() {
           ) : (
             <section className="card card-strong h-full min-h-[240px]">
               <p className="section-label">Prediction Output</p>
-              <h2 className="mt-2 text-2xl font-bold text-earth-800">No prediction generated yet</h2>
-              <p className="mt-3 max-w-xl text-sm text-earth-700">
+              <h2 className="heading-lg mt-2 text-2xl">No prediction generated yet</h2>
+              <p className="body-copy mt-3 max-w-xl text-sm">
                 Submit the form to view yield metrics, risk level, food security signal, planting schedule, and AI advisory.
               </p>
             </section>
@@ -140,7 +140,7 @@ export default function App() {
         </div>
       </section>
 
-      <footer className="pb-2 text-center text-xs text-earth-600">
+      <footer className="body-muted pb-2 text-center text-xs">
         AgriSmart Decision Support Dashboard
       </footer>
     </main>

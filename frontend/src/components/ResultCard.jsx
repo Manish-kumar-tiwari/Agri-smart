@@ -26,7 +26,7 @@ export default function ResultCard({ result }) {
           <p className="section-label">Prediction Output</p>
           <div className="mt-1 flex items-center gap-2">
             <img src={wheatIcon} alt="Wheat icon" className="h-8 w-8 rounded-lg border border-earth-100 bg-white p-1" />
-            <h2 className="text-2xl font-bold text-earth-800">Yield Intelligence Report</h2>
+            <h2 className="heading-lg text-2xl">Yield Intelligence Report</h2>
           </div>
         </div>
         <span
@@ -39,32 +39,32 @@ export default function ResultCard({ result }) {
       <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
         <div className="kpi-card">
           <p className="section-label">Yield (hg/ha)</p>
-          <p className="mt-2 text-2xl font-black text-earth-800">{result.predicted_yield_hg_ha.toFixed(2)}</p>
+          <p className="metric-value mt-2 text-2xl">{result.predicted_yield_hg_ha.toFixed(2)}</p>
         </div>
         <div className="kpi-card">
           <p className="section-label">Yield (t/ha)</p>
-          <p className="mt-2 text-2xl font-black text-earth-800">{result.predicted_yield_t_ha.toFixed(2)}</p>
+          <p className="metric-value mt-2 text-2xl">{result.predicted_yield_t_ha.toFixed(2)}</p>
         </div>
         <div className="kpi-card">
           <p className="section-label">Expected Production</p>
-          <p className="mt-2 text-2xl font-black text-earth-800">{(result.expected_production_tons || 0).toFixed(2)} tons</p>
+          <p className="metric-value mt-2 text-2xl">{(result.expected_production_tons || 0).toFixed(2)} tons</p>
         </div>
         <div className="kpi-card">
           <p className="section-label">Food Security</p>
-          <p className="mt-2 text-lg font-bold text-earth-800">{result.food_security_level}</p>
+          <p className="heading-md mt-2 text-lg">{result.food_security_level}</p>
         </div>
       </div>
 
       <div className="rounded-xl border border-earth-100 bg-earth-50 p-4">
         <div className="mb-2 flex items-center justify-between gap-2">
-          <h3 className="text-sm font-semibold uppercase tracking-wide text-earth-700">Food Security Signal</h3>
+          <h3 className="heading-md text-sm uppercase tracking-wide">Food Security Signal</h3>
           <span
             className={`rounded-full border px-3 py-1 text-xs font-semibold ${foodStyle[result.food_security_level] || "border-slate-200 bg-slate-100 text-slate-700"}`}
           >
             {result.food_security_level}
           </span>
         </div>
-        <ul className="list-disc space-y-1 pl-6 text-sm text-earth-700">
+        <ul className="body-copy list-disc space-y-1 pl-6 text-sm">
           {foodNotes.map((item) => (
             <li key={item}>{item}</li>
           ))}
@@ -73,25 +73,25 @@ export default function ResultCard({ result }) {
 
       <div className="grid gap-4 lg:grid-cols-2">
         <div className="rounded-xl border border-earth-100 bg-white p-4">
-          <h3 className="text-sm font-semibold uppercase tracking-wide text-earth-700">Agronomic Warnings</h3>
+          <h3 className="heading-md text-sm uppercase tracking-wide">Agronomic Warnings</h3>
           {result.warnings?.length ? (
-            <ul className="mt-2 list-disc space-y-1 pl-6 text-sm text-earth-700">
+            <ul className="body-copy mt-2 list-disc space-y-1 pl-6 text-sm">
               {result.warnings.map((item) => (
                 <li key={item}>{item}</li>
               ))}
             </ul>
           ) : (
-            <p className="mt-2 text-sm text-earth-700">No major warning detected.</p>
+            <p className="body-copy mt-2 text-sm">No major warning detected.</p>
           )}
         </div>
 
         <div className="rounded-xl border border-earth-100 bg-white p-4">
-          <h3 className="text-sm font-semibold uppercase tracking-wide text-earth-700">Planting Schedule Plan</h3>
-          <p className="mt-2 text-sm text-earth-700">{schedule.recommended_window}</p>
-          <p className="mt-2 text-sm text-earth-700">
-            <span className="font-semibold">Irrigation:</span> {schedule.irrigation_plan}
+          <h3 className="heading-md text-sm uppercase tracking-wide">Planting Schedule Plan</h3>
+          <p className="body-copy mt-2 text-sm">{schedule.recommended_window}</p>
+          <p className="body-copy mt-2 text-sm">
+            <span className="heading-md">Irrigation:</span> {schedule.irrigation_plan}
           </p>
-          <ul className="mt-2 list-disc space-y-1 pl-6 text-sm text-earth-700">
+          <ul className="body-copy mt-2 list-disc space-y-1 pl-6 text-sm">
             {schedule.actions.map((item) => (
               <li key={item}>{item}</li>
             ))}
@@ -100,16 +100,16 @@ export default function ResultCard({ result }) {
       </div>
 
       <div className="rounded-xl border border-earth-100 bg-white p-4">
-        <h3 className="text-sm font-semibold uppercase tracking-wide text-earth-700">AI Advisory</h3>
-        <p className="mt-2 whitespace-pre-line text-sm leading-6 text-earth-700">{result.advisory}</p>
+        <h3 className="heading-md text-sm uppercase tracking-wide">AI Advisory</h3>
+        <p className="body-copy mt-2 whitespace-pre-line text-sm leading-6">{result.advisory}</p>
       </div>
 
       <div className="rounded-xl border border-earth-100 bg-earth-50 p-4">
-        <h3 className="text-sm font-semibold uppercase tracking-wide text-earth-700">Analyst Notes</h3>
+        <h3 className="heading-md text-sm uppercase tracking-wide">Analyst Notes</h3>
         {result.warnings?.length ? (
-          <p className="mt-2 text-sm text-earth-700">Risk is active. Prioritize mitigation actions listed in warnings and schedule plan.</p>
+          <p className="body-copy mt-2 text-sm">Risk is active. Prioritize mitigation actions listed in warnings and schedule plan.</p>
         ) : (
-          <p className="mt-2 text-sm text-earth-700">Current prediction has stable risk profile. Continue monitoring weekly field conditions.</p>
+          <p className="body-copy mt-2 text-sm">Current prediction has stable risk profile. Continue monitoring weekly field conditions.</p>
         )}
       </div>
     </section>

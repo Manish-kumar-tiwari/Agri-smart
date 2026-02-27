@@ -26,7 +26,7 @@ const cropSuggestions = [
 
 function Field({ label, name, value, onChange, type = "text", step, min, max, placeholder, hint }) {
   return (
-    <label className="flex flex-col gap-1.5 text-sm font-semibold text-earth-700">
+    <label className="heading-md flex flex-col gap-1.5 text-sm">
       <span>{label}</span>
       <input
         className="rounded-xl border border-earth-100 bg-white px-3 py-2.5 text-earth-900 outline-none transition focus:border-earth-500 focus:ring-2 focus:ring-earth-100"
@@ -40,7 +40,7 @@ function Field({ label, name, value, onChange, type = "text", step, min, max, pl
         onChange={onChange}
         required
       />
-      {hint ? <span className="text-xs font-medium text-earth-600">{hint}</span> : null}
+      {hint ? <span className="body-muted text-xs font-medium">{hint}</span> : null}
     </label>
   );
 }
@@ -72,9 +72,9 @@ export default function PredictionForm({ onSubmit, loading }) {
         <p className="section-label">Input Parameters</p>
         <div className="mt-2 flex items-center gap-2">
           <img src={sproutIcon} alt="Plant icon" className="h-8 w-8 rounded-lg border border-earth-100 bg-white p-1" />
-          <h2 className="text-xl font-bold text-earth-800">Yield Prediction Form</h2>
+          <h2 className="heading-lg text-xl">Yield Prediction Form</h2>
         </div>
-        <p className="mt-1 text-sm text-earth-700">Fill each field with realistic farm values for stronger prediction quality.</p>
+        <p className="body-copy mt-1 text-sm">Fill each field with realistic farm values for stronger prediction quality.</p>
       </div>
 
       <div className="grid gap-4 md:grid-cols-2">
@@ -87,7 +87,7 @@ export default function PredictionForm({ onSubmit, loading }) {
           hint="Used as regional context for model lookup."
         />
 
-        <label className="flex flex-col gap-1.5 text-sm font-semibold text-earth-700">
+        <label className="heading-md flex flex-col gap-1.5 text-sm">
           <span>Crop Item</span>
           <input
             className="rounded-xl border border-earth-100 bg-white px-3 py-2.5 text-earth-900 outline-none transition focus:border-earth-500 focus:ring-2 focus:ring-earth-100"
@@ -103,7 +103,7 @@ export default function PredictionForm({ onSubmit, loading }) {
               <option key={crop} value={crop} />
             ))}
           </datalist>
-          <span className="text-xs font-medium text-earth-600">You can type custom crop names too.</span>
+          <span className="body-muted text-xs font-medium">You can type custom crop names too.</span>
         </label>
 
         <Field
@@ -162,7 +162,7 @@ export default function PredictionForm({ onSubmit, loading }) {
         />
       </div>
 
-      <div className="rounded-xl border border-earth-100 bg-earth-50 px-4 py-3 text-xs text-earth-700">
+      <div className="body-copy rounded-xl border border-earth-100 bg-earth-50 px-4 py-3 text-xs">
         Data tip: keep units consistent. Rainfall is annual `mm/year`, temperature is in `C`, and farm size is `hectares`.
       </div>
 
